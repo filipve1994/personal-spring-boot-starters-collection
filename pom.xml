@@ -1,0 +1,114 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.2.4</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+
+    <groupId>io.filipvde</groupId>
+    <artifactId>personal-spring-boot-starters-collection-parent</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <name>personal-spring-boot-starters-collection-parent</name>
+    <url>https://github.com/filipve1994/personal-spring-boot-starters-collection</url>
+
+    <developers>
+        <developer>
+            <id>fve</id>
+            <name>FVDE</name>
+            <email>info@fvde.io</email>
+            <organization>fve</organization>
+            <organizationUrl>https://fve.io/about/#community</organizationUrl>
+        </developer>
+    </developers>
+    <scm>
+        <connection>scm:git:git://github.com/filipve1994/personal-spring-boot-starters-collection.git</connection>
+        <developerConnection>scm:git:ssh://github.com/filipve1994/personal-spring-boot-starters-collection.git
+        </developerConnection>
+        <url>https://github.com/filipve1994/personal-spring-boot-starters-collection/tree/master</url>
+    </scm>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>21</java.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <maven-jar-plugin.version>3.3.0</maven-jar-plugin.version>
+
+    </properties>
+
+    <modules>
+
+
+        <module>microservice-springbootstarter</module>
+        <module>utils-spring-boot-starter</module>
+
+        <!-- add to avoid IDE warnings all the time-->
+
+        <module>example-spring-boot-starter</module>
+    </modules>
+
+    <dependencies>
+
+    </dependencies>
+
+    <!--
+  The <distributionManagement> section in the Maven pom.xml file specifies
+  where project artifacts should be deployed (published).
+  -->
+    <distributionManagement>
+        <!-- this is to publish to the same repo as the package -->
+        <!--    <repository>-->
+        <!--      <id>github</id>-->
+        <!--      <name>Github</name>-->
+        <!--      <url>https://maven.pkg.github.com/filipve1994/tutorial-lib</url>-->
+        <!--    </repository>-->
+        <!--    <snapshotRepository>-->
+        <!--      <id>github</id>-->
+        <!--      <url>https://maven.pkg.github.com/filipve1994/tutorial-lib</url>-->
+        <!--    </snapshotRepository>-->
+
+        <!-- this creates 1 repo with all projects pushed to -->
+        <repository>
+            <id>github</id>
+            <name>GitHub Packages</name>
+            <url>https://maven.pkg.github.com/filipve1994/private-maven-packages-repo</url>
+        </repository>
+        <snapshotRepository>
+            <id>github</id>
+            <url>https://maven.pkg.github.com/filipve1994/private-maven-packages-repo</url>
+        </snapshotRepository>
+
+    </distributionManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>${maven.compiler.source}</source>
+                    <source>${maven.compiler.source}</source>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>${maven-jar-plugin.version}</version>
+            </plugin>
+        </plugins>
+    </build>
+
+    <licenses>
+        <license>
+            <name>Apache License 2.0</name>
+            <url>http://www.apache.org/licenses/</url>
+        </license>
+    </licenses>
+</project>
