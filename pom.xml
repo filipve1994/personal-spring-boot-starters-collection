@@ -34,13 +34,51 @@
     </scm>
 
     <properties>
+        <springboot-version-should-be-same-as-parent>3.2.4
+        </springboot-version-should-be-same-as-parent> <!-- keep same version as spring boot parent -->
+        <spring-boot-custom-starter-version>1.0.0
+        </spring-boot-custom-starter-version><!-- keep same as property of artifactId-->
+
+        <spring-cloud.version>2023.0.1</spring-cloud.version>
+
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>21</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
-        <maven-jar-plugin.version>3.3.0</maven-jar-plugin.version>
-        <maven-jar-use-timestamp-insteadof-snapshot-as-prefixforjar>false</maven-jar-use-timestamp-insteadof-snapshot-as-prefixforjar>
+        <timestamp>${maven.build.timestamp}</timestamp>
+        <maven.build.timestamp.format>yyyyMMdd-HHmmss</maven.build.timestamp.format>
 
+        <maven-jar-plugin.version>3.3.0</maven-jar-plugin.version>
+        <maven-jar-use-timestamp-insteadof-snapshot-as-prefixforjar>false
+        </maven-jar-use-timestamp-insteadof-snapshot-as-prefixforjar>
+
+        <!-- plugins and libs -->
+        <springdoc.version>2.4.0</springdoc.version>
+        <google-guava.version>33.1.0-jre</google-guava.version>
+        <jjwt.version>0.12.5</jjwt.version>
+        <lombok.version>1.18.30</lombok.version>
+        <jasypt.version>3.0.5</jasypt.version>
+        <findbugs.version>3.0.2</findbugs.version>
+        <apache-commons-lang3.version>3.14.0</apache-commons-lang3.version>
+        <apache-commons-collections4.version>4.4</apache-commons-collections4.version>
+        <apache-commons-text.version>1.11.0</apache-commons-text.version>
+        <apache-commons-validator.version>1.8.0</apache-commons-validator.version>
+
+        <h2.version>2.2.224</h2.version>
+        <snakeyaml.version>2.1</snakeyaml.version>
+        <jacoco.maven.plugin.version>0.8.11</jacoco.maven.plugin.version>
+        <springdoc.version>2.4.0</springdoc.version>
+        <openapitools-generator.version>7.4.0</openapitools-generator.version>
+        <jsoup.version>1.17.2</jsoup.version>
+        <junit.pioneer.version>2.2.0</junit.pioneer.version>
+
+
+        <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine -->
+        <!--        <junit-jupiter-engine.version>5.10.2</junit-jupiter-engine.version>-->
+        <!-- https://mvnrepository.com/artifact/org.junit.platform/junit-platform-launcher -->
+        <junit-platform-launcher.version>1.10.2</junit-platform-launcher.version>
+
+        <skipGitPlugin>false</skipGitPlugin>
     </properties>
 
     <modules>
@@ -48,6 +86,8 @@
 
         <module>microservice-springbootstarter</module>
         <module>utils-spring-boot-starter</module>
+        <module>security-spring-boot-starter</module>
+        <module>jpa-spring-boot-starter</module>
 
         <!-- add to avoid IDE warnings all the time-->
 
@@ -56,6 +96,124 @@
 
     <dependencyManagement>
         <dependencies>
+
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+                <version>${springdoc.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-starter-webmvc-api</artifactId>
+                <version>${springdoc.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-starter-common</artifactId>
+                <version>${springdoc.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.github.ulisesbocchio</groupId>
+                <artifactId>jasypt-spring-boot-starter</artifactId>
+                <version>${jasypt.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.google.code.findbugs</groupId>
+                <artifactId>jsr305</artifactId>
+                <version>${findbugs.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-tomcat</artifactId>
+                <version>${springboot-version-should-be-same-as-parent}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${google-guava.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${apache-commons-lang3.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-collections4</artifactId>
+                <version>${apache-commons-collections4.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-text</artifactId>
+                <version>${apache-commons-text.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.openapitools</groupId>
+                <artifactId>openapi-generator</artifactId>
+                <version>${openapitools-generator.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-api</artifactId>
+                <version>${jjwt.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-impl</artifactId>
+                <version>${jjwt.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-jackson</artifactId>
+                <version>${jjwt.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+                <optional>true</optional>
+            </dependency>
+
+            <dependency>
+                <groupId>org.junit.platform</groupId>
+                <artifactId>junit-platform-launcher</artifactId>
+                <version>${junit-platform-launcher.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.yaml</groupId>
+                <artifactId>snakeyaml</artifactId>
+                <version>${snakeyaml.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.jsoup</groupId>
+                <artifactId>jsoup</artifactId>
+                <version>${jsoup.version}</version>
+            </dependency>
 
             <dependency>
                 <groupId>commons-beanutils</groupId>
@@ -69,10 +227,23 @@
                 <version>1.6.4</version>
             </dependency>
 
+            <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-params -->
+            <!--        JUnit Jupiter extension for running parameterized tests.-->
             <dependency>
-                <groupId>com.google.guava</groupId>
-                <artifactId>guava</artifactId>
-                <version>33.1.0-jre</version>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-params</artifactId>
+                <version>${junit-jupiter.version}</version>
+                <!--                <scope>test</scope>-->
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.junit-pioneer/junit-pioneer -->
+            <!--        JUnit 5 Extension Pack -->
+            <!--        https://junit-pioneer.org/docs/ -->
+            <dependency>
+                <groupId>org.junit-pioneer</groupId>
+                <artifactId>junit-pioneer</artifactId>
+                <version>${junit.pioneer.version}</version>
+                <!--                <scope>test</scope>-->
             </dependency>
 
 
@@ -81,37 +252,37 @@
 
     <dependencies>
 
-<!--        &lt;!&ndash; building &ndash;&gt;-->
+        <!--        &lt;!&ndash; building &ndash;&gt;-->
 
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.boot</groupId>-->
-<!--            <artifactId>spring-boot-starter</artifactId>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.springframework.boot</groupId>-->
+        <!--            <artifactId>spring-boot-starter</artifactId>-->
+        <!--        </dependency>-->
 
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.boot</groupId>-->
-<!--            <artifactId>spring-boot-autoconfigure</artifactId>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.springframework.boot</groupId>-->
+        <!--            <artifactId>spring-boot-autoconfigure</artifactId>-->
+        <!--        </dependency>-->
 
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.boot</groupId>-->
-<!--            <artifactId>spring-boot-configuration-processor</artifactId>-->
-<!--            <optional>true</optional>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.springframework.boot</groupId>-->
+        <!--            <artifactId>spring-boot-configuration-processor</artifactId>-->
+        <!--            <optional>true</optional>-->
+        <!--        </dependency>-->
 
-<!--        &lt;!&ndash; testing &ndash;&gt;-->
+        <!--        &lt;!&ndash; testing &ndash;&gt;-->
 
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.boot</groupId>-->
-<!--            <artifactId>spring-boot-starter-test</artifactId>-->
-<!--            <scope>test</scope>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.springframework.boot</groupId>-->
+        <!--            <artifactId>spring-boot-starter-test</artifactId>-->
+        <!--            <scope>test</scope>-->
+        <!--        </dependency>-->
 
-<!--        <dependency>-->
-<!--            <groupId>org.junit.platform</groupId>-->
-<!--            <artifactId>junit-platform-launcher</artifactId>-->
-<!--            <scope>test</scope>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.junit.platform</groupId>-->
+        <!--            <artifactId>junit-platform-launcher</artifactId>-->
+        <!--            <scope>test</scope>-->
+        <!--        </dependency>-->
 
     </dependencies>
 
@@ -144,7 +315,46 @@
 
     </distributionManagement>
 
+
     <build>
+
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <configuration>
+                        <excludes>
+                            <exclude>
+                                <groupId>org.projectlombok</groupId>
+                                <artifactId>lombok</artifactId>
+                            </exclude>
+                        </excludes>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>build-info</goal>
+                            </goals>
+                            <configuration>
+                                <additionalProperties>
+                                    <!--                                    <versions.starter>${spring-boot-custom-starter-version}</versions.starter>-->
+                                    <!--                                    <versions.spring>${springboot-version-should-be-same-as-parent}</versions.spring>-->
+                                </additionalProperties>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.jacoco</groupId>
+                    <artifactId>jacoco-maven-plugin</artifactId>
+                    <version>${jacoco.maven.plugin.version}</version>
+                </plugin>
+            </plugins>
+
+        </pluginManagement>
+
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -163,10 +373,51 @@
                             <!-- this will change the unique timestamp in the name to -SNAPSHOT.jar -->
                             <!-- false => domain-1.0-SNAPSHOT.jar -->
                             <!-- true => domain-1.0-20240404.184611-1.jar -->
-                            <useUniqueVersions>${maven-jar-use-timestamp-insteadof-snapshot-as-prefixforjar}</useUniqueVersions>
+                            <useUniqueVersions>${maven-jar-use-timestamp-insteadof-snapshot-as-prefixforjar}
+                            </useUniqueVersions>
                         </manifest>
                     </archive>
                 </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>io.github.git-commit-id</groupId>
+                <artifactId>git-commit-id-maven-plugin</artifactId>
+                <configuration>
+                    <gitDescribe>
+                        <skip>true</skip>
+                    </gitDescribe>
+                    <excludeProperties>
+                        <excludeProperty>git.tags</excludeProperty>
+                        <excludeProperty>git.total.commit.count</excludeProperty>
+                        <excludeProperty>git.closest.tag.name</excludeProperty>
+                        <excludeProperty>git.closest.tag.commit.count</excludeProperty>
+                        <excludeProperty>git.local.branch.*</excludeProperty>
+                    </excludeProperties>
+                    <skip>${skipGitPlugin}</skip>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>generate-code-coverage-report</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.reporting.outputDirectory}/jacoco</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
